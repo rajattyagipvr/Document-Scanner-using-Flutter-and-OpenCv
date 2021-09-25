@@ -108,15 +108,9 @@ class _HomeState extends State<Home> {
                     Provider.of<DocumentProvider>(context).allDocuments.length,
               ));
         },
-      ),
-    );
-  }
+      ),=p e+r.of(context).push(MaterialPageRoute(
 
-  void chooseImage(ImageSource source) async {
-    File fileGallery = await ImagePicker.pickImage(source: source);
-    if (fileGallery != null) {
-      _file = fileGallery;
-      Navigator.of(context).push(MaterialPageRoute(
+
           builder: (context) => NewImage(fileGallery, animatedListKey)));
     }
   }
