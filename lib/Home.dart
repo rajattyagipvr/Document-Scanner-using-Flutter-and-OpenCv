@@ -31,14 +31,14 @@ class _HomeState extends State<Home> {
   }
 
   static GlobalKey<AnimatedListState> animatedListKey =
-      GlobalKey<AnimatedListState>();
+  GlobalKey<AnimatedListState>();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       drawer: SafeArea(
           child: Drawer(
-        child: DocDrawer(),
-      )),
+            child: DocDrawer(),
+          )),
       appBar: AppBar(
         title: Text("Doc Scan"),
         actions: <Widget>[
@@ -96,8 +96,8 @@ class _HomeState extends State<Home> {
                 itemBuilder: (context, index, animation) {
                   if (index ==
                       Provider.of<DocumentProvider>(context)
-                              .allDocuments
-                              .length -
+                          .allDocuments
+                          .length -
                           1) {
                     print("last");
                     return SizedBox(height: 100);
@@ -105,12 +105,18 @@ class _HomeState extends State<Home> {
                   return buildDocumentCard(index, animation);
                 },
                 initialItemCount:
-                    Provider.of<DocumentProvider>(context).allDocuments.length,
+                Provider.of<DocumentProvider>(context).allDocuments.length,
               ));
         },
-      ),=p e+r.of(context).push(MaterialPageRoute(
+      ),
+    );
+  }
 
-
+  void chooseImage(ImageSource source) async {
+    File fileGallery = await ImagePicker.pickImage(source: source);
+    if (fileGallery != null) {
+      _file = fileGallery;
+      Navigator.of(context).push(MaterialPageRoute(
           builder: (context) => NewImage(fileGallery, animatedListKey)));
     }
   }
@@ -135,7 +141,7 @@ class _HomeState extends State<Home> {
             Navigator.of(context).push(MaterialPageRoute(
               builder: (context) => PDFScreen(
                 document:
-                    Provider.of<DocumentProvider>(context).allDocuments[index],
+                Provider.of<DocumentProvider>(context).allDocuments[index],
                 animatedListKey: animatedListKey,
               ),
             ));
@@ -173,44 +179,44 @@ class _HomeState extends State<Home> {
                   children: <Widget>[
                     Container(
                         child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: <Widget>[
-                        Container(
-                          width: 150,
-                          padding: EdgeInsets.all(12),
-                          child: Text(
-                            Provider.of<DocumentProvider>(context)
-                                .allDocuments[index]
-                                .name,
-                            style: TextStyle(color: Colors.white, fontSize: 18),
-                            maxLines: 1,
-                            overflow: TextOverflow.ellipsis,
-                          ),
-                        ),
-                        Container(
-                            padding: EdgeInsets.only(left: 12),
-                            child: Text(
-                              Provider.of<DocumentProvider>(context)
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: <Widget>[
+                            Container(
+                              width: 150,
+                              padding: EdgeInsets.all(12),
+                              child: Text(
+                                Provider.of<DocumentProvider>(context)
+                                    .allDocuments[index]
+                                    .name,
+                                style: TextStyle(color: Colors.white, fontSize: 18),
+                                maxLines: 1,
+                                overflow: TextOverflow.ellipsis,
+                              ),
+                            ),
+                            Container(
+                                padding: EdgeInsets.only(left: 12),
+                                child: Text(
+                                  Provider.of<DocumentProvider>(context)
                                       .allDocuments[index]
                                       .dateTime
                                       .day
                                       .toString() +
-                                  "-" +
-                                  Provider.of<DocumentProvider>(context)
-                                      .allDocuments[index]
-                                      .dateTime
-                                      .month
-                                      .toString() +
-                                  "-" +
-                                  Provider.of<DocumentProvider>(context)
-                                      .allDocuments[index]
-                                      .dateTime
-                                      .year
-                                      .toString(),
-                              style: TextStyle(color: Colors.grey[400]),
-                            )),
-                      ],
-                    )),
+                                      "-" +
+                                      Provider.of<DocumentProvider>(context)
+                                          .allDocuments[index]
+                                          .dateTime
+                                          .month
+                                          .toString() +
+                                      "-" +
+                                      Provider.of<DocumentProvider>(context)
+                                          .allDocuments[index]
+                                          .dateTime
+                                          .year
+                                          .toString(),
+                                  style: TextStyle(color: Colors.grey[400]),
+                                )),
+                          ],
+                        )),
                     SizedBox(
                       height: 60,
                     ),
@@ -224,8 +230,8 @@ class _HomeState extends State<Home> {
                                 icon: Icon(Icons.share,color: ThemeData.dark().accentColor,),
                                 onPressed: () {
                                   shareDocument(Provider.of<DocumentProvider>(
-                                          context,
-                                          listen: false)
+                                      context,
+                                      listen: false)
                                       .allDocuments[index]
                                       .pdfPath);
                                 }),
@@ -239,23 +245,23 @@ class _HomeState extends State<Home> {
                                   showModalSheet(
                                       index: index,
                                       filePath: Provider.of<DocumentProvider>(
-                                              context,
-                                              listen: false)
+                                          context,
+                                          listen: false)
                                           .allDocuments[index]
                                           .documentPath,
                                       dateTime: Provider.of<DocumentProvider>(
-                                              context,
-                                              listen: false)
+                                          context,
+                                          listen: false)
                                           .allDocuments[index]
                                           .dateTime,
                                       name: Provider.of<DocumentProvider>(
-                                              context,
-                                              listen: false)
+                                          context,
+                                          listen: false)
                                           .allDocuments[index]
                                           .name,
                                       pdfPath: Provider.of<DocumentProvider>(
-                                              context,
-                                              listen: false)
+                                          context,
+                                          listen: false)
                                           .allDocuments[index]
                                           .pdfPath);
                                 })
@@ -277,10 +283,10 @@ class _HomeState extends State<Home> {
 
   void showModalSheet(
       {int index,
-      String filePath,
-      String name,
-      DateTime dateTime,
-      String pdfPath}) {
+        String filePath,
+        String name,
+        DateTime dateTime,
+        String pdfPath}) {
     showModalBottomSheet(
       context: context,
       builder: (context) {
@@ -375,27 +381,27 @@ class _HomeState extends State<Home> {
       builder: (context) => AlertDialog(
         content: Container(
             child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisSize: MainAxisSize.min,
-          children: <Widget>[
-            Text(
-              "Delete file",
-              style: TextStyle(fontWeight: FontWeight.bold),
-            ),
-            Divider(
-              thickness: 2,
-            ),
-            Text(
-              "Are you sure you want to delete this file?",
-              style: TextStyle(color: Colors.grey[500]),
-            )
-          ],
-        )),
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisSize: MainAxisSize.min,
+              children: <Widget>[
+                Text(
+                  "Delete file",
+                  style: TextStyle(fontWeight: FontWeight.bold),
+                ),
+                Divider(
+                  thickness: 2,
+                ),
+                Text(
+                  "Are you sure you want to delete this file?",
+                  style: TextStyle(color: Colors.grey[500]),
+                )
+              ],
+            )),
         actions: <Widget>[
           OutlineButton(
             shape:
-                RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+            RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
             onPressed: () {
               Navigator.of(context).pop();
             },
@@ -406,17 +412,17 @@ class _HomeState extends State<Home> {
           ),
           OutlineButton(
             shape:
-                RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+            RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
             onPressed: () {
               Navigator.of(context).pop();
 
               Provider.of<DocumentProvider>(context, listen: false)
                   .deleteDocument(
-                      index, dateTime.millisecondsSinceEpoch.toString());
+                  index, dateTime.millisecondsSinceEpoch.toString());
               Timer(Duration(milliseconds: 300), () {
                 animatedListKey.currentState.removeItem(
                     index,
-                    (context, animation) =>
+                        (context, animation) =>
                         buildDocumentCard(index, animation));
               });
             },
@@ -440,23 +446,23 @@ class _HomeState extends State<Home> {
       builder: (context) => AlertDialog(
         content: Container(
             child: Column(
-          mainAxisSize: MainAxisSize.min,
-          mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            Text("Rename"),
-            TextFormField(
-              controller: controller,
-              autofocus: true,
-              decoration: InputDecoration(
-                  suffix: IconButton(
-                      icon: Icon(Icons.clear),
-                      onPressed: () {
-                        controller.clear();
-                      })),
-            ),
-          ],
-        )),
+              mainAxisSize: MainAxisSize.min,
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                Text("Rename"),
+                TextFormField(
+                  controller: controller,
+                  autofocus: true,
+                  decoration: InputDecoration(
+                      suffix: IconButton(
+                          icon: Icon(Icons.clear),
+                          onPressed: () {
+                            controller.clear();
+                          })),
+                ),
+              ],
+            )),
         actions: <Widget>[
           OutlineButton(
               shape: RoundedRectangleBorder(
@@ -472,9 +478,9 @@ class _HomeState extends State<Home> {
                 Navigator.of(context).pop();
                 Provider.of<DocumentProvider>(context, listen: false)
                     .renameDocument(
-                        index,
-                        dateTime.millisecondsSinceEpoch.toString(),
-                        controller.text);
+                    index,
+                    dateTime.millisecondsSinceEpoch.toString(),
+                    controller.text);
               },
               child: Text("Rename")),
         ],
